@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:44:25 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/12 15:02:36 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:04:06 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
+typedef struct s_philo	t_philo;
+
 typedef struct s_rule
 {
 	int				num_philos;
@@ -29,6 +31,7 @@ typedef struct s_rule
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat_count;
+	t_philo			*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	long long		start_time;
@@ -43,6 +46,7 @@ typedef struct s_philo
 	t_rule			*rule;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*set_time_mutex;
 }	t_philo;
 
 //check.c

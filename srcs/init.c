@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 15:01:46 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/12 14:45:58 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:04:45 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	init_philo(t_rule *rule, t_phlio **philo)
 		(*philo)[i].rule = rule;
 		(*philo)[i].left_fork = &rule->forks[i];
 		(*philo)[i].right_fork = &rule->forks[(i + 1) % rule->num_philos];
+		pthread_mutex_init(&(*philo)[i].set_time_mutex, NULL);
 		i++;
 	}
 }
@@ -64,7 +65,6 @@ void	init(t_rule *rule, t_phlio **philo, char **av)
 {
 	init_rule(av, rule);
 	init_philo(rule, philo);
-	rule->start_time = get_current_time_ms();
 }
 
 void	execute_philo(t_phlio *philo)
