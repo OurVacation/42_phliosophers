@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 10:18:19 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/12 16:16:05 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:15:27 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	philo_eat(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
+
 		pthread_mutex_lock(philo->rule->print_mutex);
 		printf("%lld %d has taken the right fork\n",get_current_time_ms(), philo->id);
 		pthread_mutex_unlock(philo->rule->print_mutex);
-		usleep(1000); // Sleep to simulate the delay in taking the right fork
+
 		pthread_mutex_lock(philo->left_fork);
+
 		pthread_mutex_lock(philo->rule->print_mutex);
 		printf("%lld %d has taken the left fork\n",get_current_time_ms(), philo->id);
 		pthread_mutex_unlock(philo->rule->print_mutex);
@@ -44,20 +46,22 @@ void	philo_eat(t_philo *philo)
 	else
 	{
 		pthread_mutex_lock(philo->left_fork);
+
 		pthread_mutex_lock(philo->rule->print_mutex);
 		printf("%lld %d has taken the left fork\n",get_current_time_ms(), philo->id);
 		pthread_mutex_unlock(philo->rule->print_mutex);
-		usleep(1000); // Sleep to simulate the delay in taking the left fork
+
 		pthread_mutex_lock(philo->right_fork);
+
 		pthread_mutex_lock(philo->rule->print_mutex);
 		printf("%lld %d has taken the right fork\n",get_current_time_ms(), philo->id);
 		pthread_mutex_unlock(philo->rule->print_mutex);
 	}
 	pthread_mutex_lock(philo->set_time_mutex);
 	philo->last_eat_time = get_current_time();
+	philo->eat_count++;
 	pthread_mutex_unlock(philo->set_time_mutex);
 
-	philo->eat_count++;
 	pthread_mutex_lock(philo->rule->print_mutex);
 	printf("%lld %d is eating\n", get_current_time_ms(), philo->id);
 	pthread_mutex_unlock(philo->rule->print_mutex);
