@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 15:01:46 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/12 16:04:45 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/27 10:55:37 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	init_rule(char **av, t_rule *rule)
 	ft_atoll(av[4], &rule->time_to_sleep);
 	if (av[5])
 		ft_atoll(av[5], &rule->must_eat_count);
+	else
+		rule->must_eat_count = -1;
+	rule->is_finished = 0;
 	rule->forks = ft_calloc(rule->num_philos, sizeof(pthread_mutex_t));
 	if (!rule->forks)
 	{
@@ -37,11 +40,11 @@ void	init_rule(char **av, t_rule *rule)
 	pthread_mutex_init(&rule->print_mutex, NULL);
 }
 
-void	init_philo(t_rule *rule, t_phlio **philo)
+void	init_philo(t_rule *rule, t_philo **philo)
 {
 	int	i;
 
-	*philo = ft_calloc(rule->num_philos, sizeof(t_phlio));
+	*philo = ft_calloc(rule->num_philos, sizeof(t_philo));
 	if (!*philo)
 	{
 		perror("Failed to allocate memory for philosophers\n");
@@ -56,36 +59,13 @@ void	init_philo(t_rule *rule, t_phlio **philo)
 		(*philo)[i].rule = rule;
 		(*philo)[i].left_fork = &rule->forks[i];
 		(*philo)[i].right_fork = &rule->forks[(i + 1) % rule->num_philos];
-		pthread_mutex_init(&(*philo)[i].set_time_mutex, NULL);
+		pthread_mutex_init(&(*philo)[i].meal_mutex, NULL);
 		i++;
 	}
 }
 
-void	init(t_rule *rule, t_phlio **philo, char **av)
+void	init(t_rule *rule, t_philo **philo, char **av)
 {
 	init_rule(av, rule);
 	init_philo(rule, philo);
-}
-
-void	execute_philo(t_phlio *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo->rule->num_philos)
-	{
-		if (pthread_create(&philo[i].thread, NULL, philo_routine, &philo[i]) != 0)
-		{
-			perror("Failed to create philosopher thread");
-			exit(EXIT_FAILURE);
-		}
-		i++;
-	}
-	philo->rule->start_time = get_current_time_ms();
-	i = 0;
-	while (i < philo->rule->num_philos)
-	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
-	}
 }

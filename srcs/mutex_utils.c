@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time.c                                         :+:      :+:    :+:   */
+/*   mutex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 11:43:04 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/27 11:04:18 by taewonki         ###   ########.fr       */
+/*   Created: 2025/08/26 14:32:28 by taewonki          #+#    #+#             */
+/*   Updated: 2025/08/26 14:32:56 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_ll	get_curtime(void)
+int	check_if_finished(t_rule *rule)
 {
-	struct timeval	tv;
-	long long		current_time;
+	int	finished;
 
-	gettimeofday(&tv, NULL);
-	current_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	return (current_time);
+	pthread_mutex_lock(&rule->finish_mutex);
+	finished = rule->is_finished;
+	pthread_mutex_unlock(&rule->finish_mutex);
+	return (finished);
 }

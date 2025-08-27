@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:59:51 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/12 16:04:51 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:33:37 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,28 @@ void	start_meal(t_rule *rule, t_philo *philo)
 		i++;
 	}
 	rule->start_time = get_current_time_ms();
+}
+
+void	wait_for_meal_end(t_rule *rule, t_philo *philo, pthread_t monitor)
+{
+	int i;
+
 	i = 0;
 	while (i < rule->num_philos)
 	{
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
+	pthread_join(monitor, NULL);
+	pthread_mutex_destroy(&rule->print_mutex);
+	pthread_mutex_destroy(&rule->finish_mutex);
+	i = 0;
+	while (i < rule->num_philos)
+	{
+		pthread_mutex_destroy(&philo[i].meal_mutex);
+		pthread_mutex_destroy(&rule->forks[i]);
+		i++;
+	}
+	free(rule->forks);
+	free(philo);
 }
