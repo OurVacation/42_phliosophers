@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:06:01 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/27 11:05:34 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/27 11:29:54 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,14 @@ void	*monitor_routine(void *arg)
 			// 마지막 식사 시간과 현재 시간 비교
 			// 현재 시간 - 마지막 식사 시간 > time_to_die
 			// -> 사망 처리
-			if (get_current_time_ms() - rule->threads[i].last_eat_time
+			if (get_curtime() - rule->threads[i].last_eat_time
 				> rule->time_to_die)
 			// 시간 초과하며 사망 처리
 			{
 				pthread_mutex_lock(&rule->print_mutex);
-				printf("%lld %d has died\n", get_current_time_ms(), rule->threads[i].id);
+				printf("%lld %d has died\n", get_curtime(), rule->threads[i].id);
 				pthread_mutex_unlock(&rule->print_mutex);
-				pthread_mutex_lock(&rule->finish_mutex);
-				rule->is_finished = 1;
-				pthread_mutex_unlock(&rule->finish_mutex);
+				set_finished(rule, 1);
 				// rule에 is_finished 플래그 설정
 				pthread_mutex_unlock(&rule->threads[i].meal_mutex);
 				return (NULL);
@@ -60,9 +58,7 @@ void	*monitor_routine(void *arg)
 				}
 				if (finished_count == rule->num_philos)
 				{
-					pthread_mutex_lock(&rule->finish_mutex);
-					rule->is_finished = 1;
-					pthread_mutex_unlock(&rule->finish_mutex);
+					set_finished(rule, 1);
 					return (NULL);
 				}
 			}

@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:44:25 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/27 11:04:28 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/27 11:30:42 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void	*monitor_routine(void *arg);
 
 //mutex_utils.c
 int		check_if_finished(t_rule *rule);
+int		set_finished(t_rule *rule, int status);
 
 #endif

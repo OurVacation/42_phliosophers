@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:50:15 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/12 14:28:15 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/27 11:32:55 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	check_argv(int ac, char **av)
 {
 	int	i;
-	int	j;
 	int	num;
 
 	if (ac < 2 || ac > 6)
