@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:50:15 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/27 11:32:55 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/27 11:39:54 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,15 @@ int	check_argv(int ac, char **av)
 	while (av[i])
 	{
 		if (ft_atoll(av[i], &num) < 0)
+		{
+			printf("Error: Invalid argument\n");
 			return (-1);
+		}
 		if (num <= 0)
+		{
+			printf("Error: Argument must be a positive integer\n");
 			return (-1);
+		}
 		i++;
 	}
 	return (1);

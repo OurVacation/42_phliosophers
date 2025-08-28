@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 10:18:19 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/27 11:04:48 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/28 14:21:33 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,21 @@ void	philo_eat(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->right_fork);
 
-		pthread_mutex_lock(&philo->rule->print_mutex);
-		printf("%lld %d has taken the right fork\n",get_curtime(), philo->id);
-		pthread_mutex_unlock(&philo->rule->print_mutex);
+		print_status(philo->rule, philo->id, FORK);
 
 		pthread_mutex_lock(philo->left_fork);
 
-		pthread_mutex_lock(&philo->rule->print_mutex);
-		printf("%lld %d has taken the left fork\n",get_curtime(), philo->id);
-		pthread_mutex_unlock(&philo->rule->print_mutex);
+		print_status(philo->rule, philo->id, FORK);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->left_fork);
 
-		pthread_mutex_lock(&philo->rule->print_mutex);
-		printf("%lld %d has taken the left fork\n",get_curtime(), philo->id);
-		pthread_mutex_unlock(&philo->rule->print_mutex);
+		print_status(philo->rule, philo->id, FORK);
 
 		pthread_mutex_lock(philo->right_fork);
 
-		pthread_mutex_lock(&philo->rule->print_mutex);
-		printf("%lld %d has taken the right fork\n",get_curtime(), philo->id);
-		pthread_mutex_unlock(&philo->rule->print_mutex);
+		print_status(philo->rule, philo->id, FORK);
 	}
 
 	pthread_mutex_lock(&philo->meal_mutex);
@@ -67,10 +59,7 @@ void	philo_eat(t_philo *philo)
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->meal_mutex);
 
-	pthread_mutex_lock(&philo->rule->print_mutex);
-	printf("%lld %d is eating\n", get_curtime(), philo->id);
-	pthread_mutex_unlock(&philo->rule->print_mutex);
-
+	print_status(philo->rule, philo->id, EAT);
 	usleep(philo->rule->time_to_eat * 1000);
 
 	pthread_mutex_unlock(philo->right_fork);
@@ -79,16 +68,12 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->rule->print_mutex);
-	printf("%lld %d is sleeping\n", get_curtime(), philo->id);
-	pthread_mutex_unlock(&philo->rule->print_mutex);
+	print_status(philo->rule, philo->id, SLEEP);
 	usleep(philo->rule->time_to_sleep * 1000);
 }
 
 void	philo_think(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->rule->print_mutex);
-	printf("%lld %d is thinking\n", get_curtime(), philo->id);
-	pthread_mutex_unlock(&philo->rule->print_mutex);
+	print_status(philo->rule, philo->id, THINK);
 	usleep(1000);
 }

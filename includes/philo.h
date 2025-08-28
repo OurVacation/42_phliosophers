@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:44:25 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/27 11:30:42 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/28 14:19:50 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define FORK "has taken a fork"
 
 typedef struct s_philo	t_philo;
 
@@ -84,5 +89,6 @@ void	*monitor_routine(void *arg);
 //mutex_utils.c
 int		check_if_finished(t_rule *rule);
 int		set_finished(t_rule *rule, int status);
+int		print_status(t_rule *rule, int id, char *status);
 
 #endif
