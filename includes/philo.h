@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:44:25 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/28 14:19:50 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/28 14:36:14 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
 # define FORK "has taken a fork"
+# define DIE "has died"
 
 typedef struct s_philo	t_philo;
 
