@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 10:18:19 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/28 14:21:33 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:53:42 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,15 @@ void	philo_eat(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
-
 		print_status(philo->rule, philo->id, FORK);
-
 		pthread_mutex_lock(philo->left_fork);
-
 		print_status(philo->rule, philo->id, FORK);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->left_fork);
-
 		print_status(philo->rule, philo->id, FORK);
-
 		pthread_mutex_lock(philo->right_fork);
-
 		print_status(philo->rule, philo->id, FORK);
 	}
 

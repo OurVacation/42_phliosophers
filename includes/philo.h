@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:44:25 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/28 14:36:14 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:09:29 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ void	*monitor_routine(void *arg);
 int		check_if_finished(t_rule *rule);
 int		set_finished(t_rule *rule, int status);
 int		print_status(t_rule *rule, int id, char *status);
+int		judge_to_timeover(t_philo *philo);
 
 #endif

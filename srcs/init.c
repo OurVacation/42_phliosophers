@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 15:01:46 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/27 10:55:37 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:53:16 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,18 @@ void	init_rule(char **av, t_rule *rule)
 		pthread_mutex_init(&rule->forks[i], NULL);
 		i++;
 	}
+	pthread_mutex_init(&rule->finish_mutex, NULL);
 	pthread_mutex_init(&rule->print_mutex, NULL);
+}
+
+void	philo_status(t_philo *philo)
+{
+	printf("Philosopher %d status:\n", philo->id);
+	printf("  Eat count: %d\n", philo->eat_count);
+	printf("  Last eat time: %lld\n", philo->last_eat_time);
+	printf("  Left fork address: %p\n", (void *)philo->left_fork);
+	printf("  Right fork address: %p\n", (void *)philo->right_fork);
+	printf("  Rule struct address: %p\n", (void *)philo->rule);
 }
 
 void	init_philo(t_rule *rule, t_philo **philo)
@@ -53,6 +64,7 @@ void	init_philo(t_rule *rule, t_philo **philo)
 	i = 0;
 	while (i < rule->num_philos)
 	{
+		printf("Initializing philosopher %d\n", i + 1);
 		(*philo)[i].id = i + 1;
 		(*philo)[i].eat_count = 0;
 		(*philo)[i].last_eat_time = 0;
@@ -60,6 +72,8 @@ void	init_philo(t_rule *rule, t_philo **philo)
 		(*philo)[i].left_fork = &rule->forks[i];
 		(*philo)[i].right_fork = &rule->forks[(i + 1) % rule->num_philos];
 		pthread_mutex_init(&(*philo)[i].meal_mutex, NULL);
+		philo_status(&(*philo)[i]);
+		printf("----------------------------------------------------\n");
 		i++;
 	}
 }

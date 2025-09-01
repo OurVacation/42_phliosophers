@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 14:32:28 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/28 14:30:46 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:10:42 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,17 @@ int	print_status(t_rule *rule, int id, char *status)
 	timestamp = get_curtime() - rule->start_time;
 	printf("%lld %d %s\n", timestamp, id, status);
 	pthread_mutex_unlock(&rule->print_mutex);
+	return (0);
+}
+
+int judge_to_timeover(t_philo *philo)
+{
+	long long	time_diff;
+
+	pthread_mutex_lock(&philo->meal_mutex);
+	time_diff = get_curtime() - philo->last_eat_time;
+	pthread_mutex_unlock(&philo->meal_mutex);
+	if (time_diff >= philo->rule->time_to_die)
+		return (1);
 	return (0);
 }

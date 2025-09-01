@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:06:01 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/27 11:29:54 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/01 11:26:51 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,14 @@ void	*monitor_routine(void *arg)
 		while (i < rule->num_philos)
 		{
 			pthread_mutex_lock(&rule->threads[i].meal_mutex);
-			// 마지막 식사 시간과 현재 시간 비교
-			// 현재 시간 - 마지막 식사 시간 > time_to_die
-			// -> 사망 처리
-			if (get_curtime() - rule->threads[i].last_eat_time
-				> rule->time_to_die)
-			// 시간 초과하며 사망 처리
+			if (get_curtime() - rule->threads[i].last_eat_time >= rule->time_to_die)
 			{
-				pthread_mutex_lock(&rule->print_mutex);
-				printf("%lld %d has died\n", get_curtime(), rule->threads[i].id);
-				pthread_mutex_unlock(&rule->print_mutex);
+				print_status(rule, rule->threads[i].id, DIE);
 				set_finished(rule, 1);
-				// rule에 is_finished 플래그 설정
 				pthread_mutex_unlock(&rule->threads[i].meal_mutex);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&rule->threads[i].meal_mutex);
-/*----------------------------------------------------------------------------*/
-			// 모든 철학자가 정해진 횟수 이상 먹었는지 확인
 			if (rule->must_eat_count > 0)
 			{
 				finished_count = 0;
@@ -66,7 +56,7 @@ void	*monitor_routine(void *arg)
 		}
 		if (check_if_finished(rule) == 1)
 			return (NULL);
-		usleep(800);
+		usleep(1500);
 	}
 	return (NULL);
 }

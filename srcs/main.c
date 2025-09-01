@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:47:13 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/26 16:41:11 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:35:33 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int ac, char **av)
 	if (check_argv(ac, av) < 0)
 		return (-1);
 	init(&rule, &philo, av);
+	printf("Main thread: address of rule struct is %p\n", &rule);
 	rule.threads = philo;
 	start_meal(&rule, philo);
 	pthread_create(&monitor_thread, NULL, monitor_routine, &rule);
