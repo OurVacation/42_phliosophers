@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 14:32:28 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/28 16:10:42 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:24:08 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ int	print_status(t_rule *rule, int id, char *status)
 	long long	timestamp;
 
 	pthread_mutex_lock(&rule->print_mutex);
+	if (check_if_finished(rule) == 1 && ft_strncmp(status, DIE, ft_strlen(DIE)) != 0)
+	{
+		pthread_mutex_unlock(&rule->print_mutex);
+		return (1);
+	}
 	timestamp = get_curtime() - rule->start_time;
 	printf("%lld %d %s\n", timestamp, id, status);
 	pthread_mutex_unlock(&rule->print_mutex);

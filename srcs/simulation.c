@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:59:51 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/28 14:54:51 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/01 11:38:39 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	start_meal(t_rule *rule, t_philo *philo)
 
 	i = 0;
 	rule->start_time = get_curtime();
-	while (i <= rule->num_philos)
+	while (i < rule->num_philos)
 	{
 		philo[i].last_eat_time = rule->start_time;
 		pthread_create(&(philo[i]).thread, NULL, philo_routine, &philo[i]);

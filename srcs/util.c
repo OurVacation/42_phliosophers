@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:44:51 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/01 11:28:46 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:23:34 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,30 @@ int	ft_atoll(const char *str, int *num)
 		return (-1);
 	*num = (int)(sign * result);
 	return (1);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	count;
+
+	count = 0;
+	while (str[count] != 0)
+		count++;
+	return (count);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)

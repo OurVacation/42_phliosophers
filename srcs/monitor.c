@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:06:01 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/01 11:26:51 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/01 12:35:25 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*monitor_routine(void *arg)
 		while (i < rule->num_philos)
 		{
 			pthread_mutex_lock(&rule->threads[i].meal_mutex);
-			if (get_curtime() - rule->threads[i].last_eat_time >= rule->time_to_die)
+			if (get_curtime() - rule->threads[i].last_eat_time > rule->time_to_die)
 			{
 				print_status(rule, rule->threads[i].id, DIE);
 				set_finished(rule, 1);

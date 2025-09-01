@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:44:25 by taewonki          #+#    #+#             */
-/*   Updated: 2025/08/28 16:09:29 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:23:48 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
 # define FORK "has taken a fork"
-# define DIE "has died"
+# define DIE "died"
 
 typedef struct s_philo	t_philo;
 
@@ -65,6 +65,8 @@ int		check_argv(int ac, char **av);
 //util.c
 int		ft_atoll(const char *str, int *num);
 void	*ft_calloc(size_t nmemb, size_t size);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlen(const char *str);
 
 //get_time.c
 t_ll	get_curtime(void);
