@@ -6,23 +6,53 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:59:51 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/01 11:38:39 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/04 18:57:07 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	set_last_eat_time(t_rule *rule, t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < rule->num_philos)
+	{
+		philo[i].last_eat_time = rule->start_time;
+		i++;
+	}
+}
+
 void	start_meal(t_rule *rule, t_philo *philo)
 {
 	int i;
 
-	i = 0;
 	rule->start_time = get_curtime();
-	while (i < rule->num_philos)
+	set_last_eat_time(rule, philo);
+	// if (rule->num_philos % 2 == 1)
+	// {
+	// 	i = 0;
+	// 	while(i < rule->num_philos)
+	// 	{
+	// 		pthread_create(&(philo[i]).thread, NULL, philo_routine, &philo[i]);
+	// 		usleep(rule->time_to_eat * 1000 / 3);
+	// 		i++;
+	// 	}
+	// 	return ;
+	// }
+	i = 1;
+	while(i < rule->num_philos)
 	{
-		philo[i].last_eat_time = rule->start_time;
-		pthread_create(&(philo[i]).thread, NULL, philo_routine, &philo[i]);
-		i++;
+		pthread_create(&(philo[i]).thread, NULL, philo_routine_odd, &philo[i]);
+		i += 2;
+	}
+	usleep(5000);
+	i = 0;
+	while(i < rule->num_philos)
+	{
+		pthread_create(&(philo[i]).thread, NULL, philo_routine_even, &philo[i]);
+		i += 2;
 	}
 }
 

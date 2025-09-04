@@ -6,16 +6,15 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 10:18:19 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/01 12:40:39 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/04 19:13:49 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*philo_routine(void *arg);
-void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
+void	philo_eat(t_philo *philo);
 
 void	*philo_routine(void *arg)
 {
@@ -80,23 +79,39 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
-	int	i;
+	int		i;
+	t_ll	time_to_end;
 
 	if (check_if_finished(philo->rule) == 1)
 		return ;
 	print_status(philo->rule, philo->id, SLEEP);
+	time_to_end = get_curtime() + philo->rule->time_to_sleep;
 	i = 0;
 	while (i < philo->rule->time_to_sleep * 10 && check_if_finished(philo->rule) == 0)
 	{
 		usleep(100);
+		if (get_curtime() >= time_to_end)
+			break ;
 		i++;
 	}
 }
 
 void	philo_think(t_philo *philo)
 {
+	t_ll	remained_time;
+	t_ll	time_to_do;
+	t_ll	time_to_think;
+
 	if (check_if_finished(philo->rule) == 1)
 		return ;
 	print_status(philo->rule, philo->id, THINK);
-	usleep(100);
+	remained_time = get_curtime() - get_last_eat_time(philo);
+	time_to_do = philo->rule->time_to_eat + philo->rule->time_to_sleep;
+	time_to_think = philo->rule->time_to_die - remained_time - time_to_do;
+	if (time_to_think > 0)
+	{
+		usleep(time_to_think * 2 / 3);
+	}
+	else
+		usleep(100);
 }

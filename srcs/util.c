@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:44:51 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/01 13:23:34 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/01 13:59:11 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,6 @@
 
 int		ft_atoll(const char *str, int *num);
 void	*ft_calloc(size_t nmemb, size_t size);
-
-static void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t			i;
-	unsigned char	*result;
-	unsigned char	element;
-
-	result = (unsigned char *)s;
-	element = (unsigned char)c;
-	i = 0;
-	while (n > i)
-	{
-		result[i] = element;
-		i++;
-	}
-	return ((void *)result);
-}
 
 int	ft_atoll(const char *str, int *num)
 {
@@ -96,6 +79,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	area = nmemb * size;
 	memory = malloc(area);
 	if (memory != NULL)
-		ft_memset(memory, 0, area);
+		memset(memory, 0, area);
 	return (memory);
 }

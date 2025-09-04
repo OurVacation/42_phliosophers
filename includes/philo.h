@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:44:25 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/01 13:23:48 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:56:34 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
@@ -81,10 +82,15 @@ void	start_meal(t_rule *rule, t_philo *philo);
 void	wait_for_meal_end(t_rule *rule, t_philo *philo, pthread_t monitor);
 
 //routine.c
-void	*philo_routine(void *arg);
-void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
+void	*philo_routine(void *arg);
+
+//routine_even.c
+void	*philo_routine_even(void *arg);
+
+//routine_odd.c
+void	*philo_routine_odd(void *arg);
 
 //monitor.c
 void	*monitor_routine(void *arg);
@@ -94,5 +100,6 @@ int		check_if_finished(t_rule *rule);
 int		set_finished(t_rule *rule, int status);
 int		print_status(t_rule *rule, int id, char *status);
 int		judge_to_timeover(t_philo *philo);
+t_ll	get_last_eat_time(t_philo *philo);
 
 #endif

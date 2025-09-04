@@ -6,7 +6,7 @@
 #    By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/26 16:26:40 by taewonki          #+#    #+#              #
-#    Updated: 2025/09/01 11:55:11 by taewonki         ###   ########.fr        #
+#    Updated: 2025/09/04 14:32:01 by taewonki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread -Iincludes
 NAME = philo
 SRCS = srcs/check.c srcs/get_time.c srcs/init.c srcs/main.c srcs/monitor.c \
-	srcs/mutex_utils.c srcs/routine.c srcs/simulation.c srcs/util.c
+	srcs/mutex_utils.c srcs/routine.c srcs/simulation.c srcs/util.c \
+	srcs/routine_even.c srcs/routine_odd.c
 OBJS = $(SRCS:.c=.o)
 RM = rm -f
 

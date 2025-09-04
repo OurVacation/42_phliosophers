@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 14:32:28 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/01 13:24:08 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/04 13:53:01 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ int	print_status(t_rule *rule, int id, char *status)
 	return (0);
 }
 
-int judge_to_timeover(t_philo *philo)
+t_ll	get_last_eat_time(t_philo *philo)
 {
-	long long	time_diff;
+	t_ll	last_eat_time;
 
 	pthread_mutex_lock(&philo->meal_mutex);
-	time_diff = get_curtime() - philo->last_eat_time;
+	last_eat_time = philo->last_eat_time;
 	pthread_mutex_unlock(&philo->meal_mutex);
-	if (time_diff >= philo->rule->time_to_die)
-		return (1);
-	return (0);
+	return (last_eat_time);
 }
