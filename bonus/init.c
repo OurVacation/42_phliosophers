@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gimtaewon <gimtaewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 22:17:27 by gimtaewon         #+#    #+#             */
-/*   Updated: 2025/09/07 22:25:15 by gimtaewon        ###   ########.fr       */
+/*   Updated: 2025/09/08 13:28:50 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ int	init_rule(char **av, t_rule *rule)
 	else
 		rule->must_eat_count = -1;
 	rule->is_finished = 0;
-	rule->forks = sem_open("/forks_sem", O_CREAT, 0644, rule->num_philos);
-	rule->print_sem = sem_open("/print_sem", O_CREAT, 0644, 1);
-	rule->finish_sem = sem_open("/finish_sem", O_CREAT, 0644, 1);
+	rule->forks = sem_open(SEM_FORKS, O_CREAT, 0644, rule->num_philos);
+	rule->print_sem = sem_open(SEM_PRINT, O_CREAT, 0644, 1);
+	rule->finish_sem = sem_open(SEM_FINISH, O_CREAT, 0644, 1);
 	if (rule->forks == SEM_FAILED || rule->print_sem == SEM_FAILED
 		|| rule->finish_sem == SEM_FAILED)
-	{
-		perror("Semaphore initialization failed");
-		return (-1);
-	}
+		return (perror("Semaphore initialization failed"), -1);
 	return (0);
 }

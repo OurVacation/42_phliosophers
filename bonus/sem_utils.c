@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   sem_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gimtaewon <gimtaewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 05:33:22 by gimtaewon         #+#    #+#             */
-/*   Updated: 2025/09/07 22:25:12 by gimtaewon        ###   ########.fr       */
+/*   Updated: 2025/09/08 13:28:18 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bouns.h"
 
-int	is_finished(t_rule *rule);
-int	set_finished(t_rule *rule, int status);
-int	print_status(t_rule *rule, int id, char *status);
+int		is_finished(t_rule *rule);
+int		set_finished(t_rule *rule, int status);
+int		print_status(t_rule *rule, int id, char *status);
 t_ll	get_last_eat_time(t_philo *philo);
 void	update_eat_time_count(t_philo *philo);
 
@@ -50,4 +50,21 @@ int	print_status(t_rule *rule, int id, char *status)
 	printf("%lld %d %s\n", timestamp, id, status);
 	sem_post(rule->print_sem);
 	return (0);
+}
+t_ll	get_last_eat_time(t_philo *philo)
+{
+	t_ll	last_eat_time;
+
+	sem_wait(philo->meal_sem);
+	last_eat_time = philo->last_eat_time;
+	sem_post(philo->meal_sem);
+	return (last_eat_time);
+}
+
+void	update_eat_time_count(t_philo *philo)
+{
+	sem_wait(philo->meal_sem);
+	philo->last_eat_time = get_curtime();
+	philo->eat_count++;
+	sem_post(philo->meal_sem);
 }

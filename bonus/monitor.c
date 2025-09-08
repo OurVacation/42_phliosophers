@@ -1,39 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 05:09:39 by gimtaewon         #+#    #+#             */
-/*   Updated: 2025/09/08 13:25:35 by taewonki         ###   ########.fr       */
+/*   Created: 2025/09/08 13:09:20 by taewonki          #+#    #+#             */
+/*   Updated: 2025/09/08 13:28:26 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bouns.h"
 
-int	main(int ac, char **av)
-{
-	int		i;
-	t_rule	rule;
-	t_philo	*philo;
-
-	if (check_argv(ac, av) < 0)
-		return (-1);
-	init(&rule, &philo, av);
-	i = 0;
-	rule.start_time = get_curtime();
-	while (i < rule.num_philos)
-	{
-		philo[i].pid = fork();
-		if (philo[i].pid < 0)
-			return (perror("Fork failed"), -1);
-		else if (philo[i].pid == 0)
-		{
-			philo_routine(&philo[i]);
-			exit(0);
-		}
-		i++;
-	}
-	return (0);
-}

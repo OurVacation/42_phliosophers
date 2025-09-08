@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bouns.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gimtaewon <gimtaewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 05:09:19 by gimtaewon         #+#    #+#             */
-/*   Updated: 2025/09/07 22:22:45 by gimtaewon        ###   ########.fr       */
+/*   Updated: 2025/09/08 13:28:15 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,31 @@ typedef long long	t_ll;
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
-#define DIE "died"
-#define EAT "is eating"
-#define SLEEP "is sleeping"
-#define THINK "is thinking"
-#define FORK "has taken a fork"
+# define DIE "died"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define FORK "has taken a fork"
+
+# define SEM_FORKS "/sem_forks"
+# define SEM_PRINT "/sem_print"
+# define SEM_FINISH "/sem_finish"
 
 typedef struct s_philo	t_philo;
 
 typedef struct s_rule
 {
-	int				num_philos;
-	t_ll			time_to_die;
-	t_ll			time_to_eat;
-	t_ll			time_to_sleep;
-	int				must_eat_count;
-	t_ll			start_time;
-	int				is_finished;
-	sem_t			*forks;
-	sem_t			*print_sem;
-	sem_t			*finish_sem;
+	int		num_philos;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		must_eat_count;
+	t_ll	start_time;
+	int		is_finished;
+	pid_t	*philo_pids;
+	sem_t	*forks;
+	sem_t	*print_sem;
+	sem_t	*finish_sem;
 }	t_rule;
 
 typedef struct s_philo
@@ -54,6 +59,7 @@ typedef struct s_philo
 	pid_t			pid;
 	int				id;
 	int				eat_count;
+	sem_t			*meal_sem;
 	t_ll			last_eat_time;
 	t_rule			*rule;
 	pthread_t		monitor_thread;
