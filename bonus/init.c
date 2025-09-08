@@ -6,13 +6,13 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 22:17:27 by gimtaewon         #+#    #+#             */
-/*   Updated: 2025/09/08 13:28:50 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:09:22 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bouns.h"
 
-int	init_rule(char **av, t_rule *rule)
+void	init_rule(char **av, t_rule *rule)
 {
 	int i;
 
@@ -32,4 +32,26 @@ int	init_rule(char **av, t_rule *rule)
 		|| rule->finish_sem == SEM_FAILED)
 		return (perror("Semaphore initialization failed"), -1);
 	return (0);
+}
+
+void	init_philo(t_rule *rule, t_philo **philo)
+{
+	int	i;
+
+	*philo = ft_calloc(rule->num_philos, sizeof(t_philo));
+	if (!*philo)
+	{
+		perror("Failed to allocate memory for philosophers\n"),
+		exit(-1);
+	}
+	i = 0;
+	while (i < rule->num_philos)
+	{
+		(*philo)[i].id = i + 1;
+		(*philo)[i].eat_count = 0;
+		(*philo)[i].last_eat_time = 0;
+		(*philo)[i].rule = rule;
+		(*philo)[i].meal_sem = sem_open(SEM_FORKS, O_CREAT, 0644, 1);
+		i++;
+	}
 }

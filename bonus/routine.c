@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 22:25:29 by gimtaewon         #+#    #+#             */
-/*   Updated: 2025/09/08 13:29:56 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:07:21 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,41 @@ void	philo_think(t_philo *philo)
 		usleep(time_to_think / 2);
 	else
 		usleep(100);
+}
+
+void	one_philo(t_philo *philo)
+{
+	sem_wait(philo->rule->forks);
+	print_status(philo->rule, philo->id, FORK);
+	while (is_finished(philo->rule) == 0)
+		usleep(100);
+	sem_post(philo->rule->forks);
+}
+
+void	philo_eat(t_philo *philo)
+{
+	int		i;
+	t_ll	time_to_end;
+
+	if (is_finished(philo->rule) == 1)
+		return ;
+	if (philo->rule->num_philos == 1)
+		return (one_philo(philo));
+	sem_wait(philo->rule->forks);
+	print_status(philo->rule, philo->id, FORK);
+	sem_wait(philo->rule->forks);
+	print_status(philo->rule, philo->id, FORK);
+	print_status(philo->rule, philo->id, EAT);
+	update_eat_time_count(philo);
+	time_to_end = get_last_eat_time(philo) + philo->rule->time_to_eat;
+	i = 0;
+	while (i < philo->rule->time_to_eat * 10 && is_finished(philo->rule) == 0)
+	{
+		usleep(100);
+		if (get_curtime() >= time_to_end)
+			break ;
+		i++;
+	}
+	sem_post(philo->rule->forks);
+	sem_post(philo->rule->forks);
 }

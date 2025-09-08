@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gimtaewon <gimtaewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:06:01 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/05 04:55:01 by gimtaewon        ###   ########.fr       */
+/*   Updated: 2025/09/08 15:09:19 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ void	*monitor_routine(void *arg)
 		{
 			if (check_is_timeover(rule, &rule->threads[i]) == 1)
 				return (NULL);
+			i++;
+		}
+		if (rule->must_eat_count != -1)
+		{
 			if (count_each_philo_eat(rule) == 1)
 				return	(NULL);
-			i++;
 		}
 		if (is_finished(rule) == 1)
 			return (NULL);
