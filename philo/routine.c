@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gimtaewon <gimtaewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 10:18:19 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/05 02:40:32 by gimtaewon        ###   ########.fr       */
+/*   Updated: 2025/09/09 12:53:45 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ void	philo_think(t_philo *philo)
 	time_to_do = philo->rule->time_to_eat + philo->rule->time_to_sleep;
 	time_to_think = philo->rule->time_to_die - remained_time - time_to_do;
 	if (time_to_think > 0)
-		usleep(time_to_think / 2);
+	{
+		if (time_to_think > philo->rule->time_to_eat * 500)
+			time_to_think = philo->rule->time_to_eat * 500;
+		usleep(time_to_think * 2 / 3);
+	}
 	else
 		usleep(100);
 }

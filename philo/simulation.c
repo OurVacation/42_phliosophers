@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gimtaewon <gimtaewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:59:51 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/05 02:34:24 by gimtaewon        ###   ########.fr       */
+/*   Updated: 2025/09/09 15:22:12 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	start_meal(t_rule *rule, t_philo *philo)
 	rule->start_time = get_curtime();
 	set_last_eat_time(rule, philo);
 	i = 1;
-	while(i < rule->num_philos)
+	while (i < rule->num_philos)
 	{
 		pthread_create(&(philo[i]).thread, NULL, philo_routine_odd, &philo[i]);
 		i += 2;
 	}
 	usleep(5000);
 	i = 0;
-	while(i < rule->num_philos)
+	while (i < rule->num_philos)
 	{
 		pthread_create(&(philo[i]).thread, NULL, philo_routine_even, &philo[i]);
 		i += 2;

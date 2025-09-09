@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gimtaewon <gimtaewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 12:47:13 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/05 04:22:59 by gimtaewon        ###   ########.fr       */
+/*   Updated: 2025/09/09 13:10:31 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// ./philo 철학자수, 죽는 시간, 먹는시간, 자는 시간, 각 철학자가 먹어야하는 횟수
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_rule	rule;
 	t_philo	*philo;
