@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 15:13:24 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/09 13:53:01 by taewonki         ###   ########.fr       */
+/*   Created: 2025/08/12 11:43:04 by taewonki          #+#    #+#             */
+/*   Updated: 2025/09/09 12:06:56 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	main(int argc, char **argv)
+t_ll	get_curtime(void)
 {
-	t_rule	rule;
-	t_philo	*philo;
+	struct timeval	tv;
+	long long		current_time;
 
-
-	if (init_rule(&rule, argv) == 1)
-		return (1);
-
-	while (is_finished(&rule) == 0)
-		usleep(100);
-	return (0);
+	gettimeofday(&tv, NULL);
+	current_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (current_time);
 }

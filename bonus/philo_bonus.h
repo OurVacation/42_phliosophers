@@ -6,7 +6,7 @@
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 15:13:39 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/08 15:29:50 by taewonki         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:57:54 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct s_rule
 	int		is_finished;
 	pid_t	*processes;
 	sem_t	*forks;
-	sem_t	*print_mutex;
-	sem_t	*finish_mutex;
+	sem_t	*print_sem;
+	sem_t	*finish_sem;
 	t_ll	start_time;
 }	t_rule;
 
@@ -68,5 +68,18 @@ int		ft_atoll(const char *str, int *num);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *str);
+
+//sem_utils.c
+int		is_finished(t_rule *rule);
+int		set_finished(t_rule *rule, int status);
+int		print_status(t_rule *rule, int id, char *status);
+t_ll	get_last_eat_time(t_philo *philo);
+void	update_eat_time_count(t_philo *philo);
+
+//get_time.c
+t_ll	get_curtime(void);
+
+//monitor.c
+void	*monitor_routine(void *arg);
 
 #endif

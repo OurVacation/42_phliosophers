@@ -1,27 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mutex_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewonki <taewonki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 15:13:24 by taewonki          #+#    #+#             */
-/*   Updated: 2025/09/09 13:53:01 by taewonki         ###   ########.fr       */
+/*   Created: 2025/09/09 11:37:04 by taewonki          #+#    #+#             */
+/*   Updated: 2025/09/09 11:41:43 by taewonki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_bonus.h"
-
-int	main(int argc, char **argv)
-{
-	t_rule	rule;
-	t_philo	*philo;
-
-
-	if (init_rule(&rule, argv) == 1)
-		return (1);
-
-	while (is_finished(&rule) == 0)
-		usleep(100);
-	return (0);
-}
